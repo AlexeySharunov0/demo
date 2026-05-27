@@ -38,7 +38,7 @@ CREATE TABLE order_statuses (
 
 CREATE TABLE orders (
     order_id INT AUTO_INCREMENT PRIMARY KEY,
-    user_id INT NULL,
+    user_id INT NOT NULL,
     status_id INT NOT NULL,
     created_at DATETIME NOT NULL,
     total_amount DECIMAL(10,2) NOT NULL,
@@ -59,7 +59,8 @@ CREATE TABLE order_items (
 INSERT INTO roles (role_id, role_name) VALUES
 (1, 'user'),
 (2, 'manager'),
-(3, 'admin');
+(3, 'admin'),
+(4, 'guest');
 
 INSERT INTO categories (category_id, category_name) VALUES
 (1, 'Куртки'),
@@ -74,7 +75,8 @@ INSERT INTO order_statuses (status_id, status_name) VALUES
 INSERT INTO users (user_id, login, password_hash, role_id) VALUES
 (1, 'user', 'user123', 1),
 (2, 'manager', 'manager123', 2),
-(3, 'admin', 'admin123', 3);
+(3, 'admin', 'admin123', 3),
+(4, 'guest', 'guest123', 4);
 
 INSERT INTO products (product_id, product_name, description, price, discount, stock_quantity, category_id) VALUES
 (1, 'Меховая куртка', 'Теплая зимняя куртка', 2421.00, 5, 20, 1),
@@ -84,8 +86,10 @@ INSERT INTO products (product_id, product_name, description, price, discount, st
 
 INSERT INTO orders (order_id, user_id, status_id, created_at, total_amount) VALUES
 (1, 1, 1, '2026-05-27 12:00:00', 2421.00),
-(2, 2, 2, '2026-05-27 13:00:00', 1500.00);
+(2, 2, 2, '2026-05-27 13:00:00', 1500.00),
+(3, 4, 1, '2026-05-27 14:00:00', 500.00);
 
 INSERT INTO order_items (order_item_id, order_id, product_id, quantity, unit_price) VALUES
 (1, 1, 1, 1, 2421.00),
-(2, 2, 4, 1, 1500.00);
+(2, 2, 4, 1, 1500.00),
+(3, 3, 3, 1, 500.00);

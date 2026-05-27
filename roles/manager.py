@@ -82,7 +82,7 @@ class Manager(QDialog):
             """
             SELECT orders.order_id, users.login, order_statuses.status_name, orders.created_at, orders.total_amount
             FROM orders
-            LEFT JOIN users ON users.user_id = orders.user_id
+            JOIN users ON users.user_id = orders.user_id
             JOIN order_statuses ON order_statuses.status_id = orders.status_id
             WHERE users.login LIKE %s OR order_statuses.status_name LIKE %s
             """
@@ -130,7 +130,7 @@ class Manager(QDialog):
         card.setFrameStyle(QFrame.Shape.Box)
         layout = QVBoxLayout(card)
 
-        if client is None:
+        if client == "guest":
             client = "Гость"
 
         text = (
