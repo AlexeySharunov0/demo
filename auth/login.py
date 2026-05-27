@@ -40,11 +40,11 @@ class LoginWindow(QDialog):
 
         role_id = result[0]
         if role_id == 1:
-            self.new_window = User()
+            self.new_window = User(login)
         elif role_id == 2:
-            self.new_window = Manager()
+            self.new_window = Manager(login)
         elif role_id == 3:
-            self.new_window = Admin()
+            self.new_window = Admin(login)
         else:
             return
 

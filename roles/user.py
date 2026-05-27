@@ -7,10 +7,12 @@ from db import conn
 
 
 class User(QDialog):
-    def __init__(self) -> None:
+    def __init__(self, username="") -> None:
         super().__init__()
         self.setWindowTitle("User")
         loadUi("ui/user_window.ui", self)
+        if hasattr(self, "label"):
+            self.label.setText(f"Пользователь: {username}")
 
         self.layout = QVBoxLayout(self.scrollAreaWidgetContents)
         self.pushButton.clicked.connect(self.return_to_auth)

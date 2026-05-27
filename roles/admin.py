@@ -7,10 +7,12 @@ from db import conn
 
 
 class Admin(QDialog):
-    def __init__(self):
+    def __init__(self, username=""):
         super().__init__()
         loadUi("manager_win.ui", self)
         self.pushButton.clicked.connect(self.back_to_auth)
+        self.user_label = QLabel(f"Пользователь: {username}")
+        self.verticalLayout.insertWidget(0, self.user_label)
 
         self.products_layout = QVBoxLayout(self.scrollAreaWidgetContents)
         self.orders_layout = QVBoxLayout(self.scrollAreaWidgetContents_2)
