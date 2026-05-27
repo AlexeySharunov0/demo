@@ -1,5 +1,6 @@
 from PyQt6.QtWidgets import *
 from PyQt6.QtGui import QPixmap
+from PyQt6.QtCore import Qt
 from PyQt6.uic import loadUi
 
 from db import conn
@@ -59,7 +60,7 @@ class Admin(QDialog):
         cursor = conn.cursor()
         cursor.execute(
             """
-            SELECT products.product_id, products.product_name, products.description, products.price, products.stock_quantity, categories.category_name
+            SELECT products.product_id, products.product_name, products.description, products.price, products.discount, products.stock_quantity, categories.category_name
             FROM products
             JOIN categories ON categories.category_id = products.category_id
             WHERE products.product_name LIKE %s OR categories.category_name LIKE %s
@@ -109,7 +110,7 @@ class Admin(QDialog):
             self.orders_layout.addWidget(self.order_card(o))
 
     def product_card(self, p):
-        pid, name, description, price, stock, category = p
+        pid, name, description, price, discount, stock, category = p
 
         card = QFrame()
         card.setFrameStyle(QFrame.Shape.Box)
@@ -119,11 +120,18 @@ class Admin(QDialog):
         photo.setPixmap(QPixmap(f"data/{pid}.jpg").scaled(100, 100))
         grid.addWidget(photo, 0, 0, 4, 1)
 
+        discount_box = QLabel(f"{discount}%")
+        discount_box.setFixedSize(60, 60)
+        discount_box.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        discount_box.setFrameStyle(QFrame.Shape.Box)
+        grid.addWidget(discount_box, 0, 2, 2, 1)
+
         text = (
             f"ID: {pid}\n"
             f"Название: {name}\n"
             f"Категория: {category}\n"
             f"Цена: {price}\n"
+            f"Скидка: {discount}%\n"
             f"Остаток: {stock}\n"
             f"Описание: {description}"
         )

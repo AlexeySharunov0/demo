@@ -25,6 +25,7 @@ CREATE TABLE products (
     product_name VARCHAR(255) NOT NULL,
     description TEXT NOT NULL,
     price DECIMAL(10,2) NOT NULL,
+    discount INT NOT NULL DEFAULT 0,
     stock_quantity INT NOT NULL,
     category_id INT NOT NULL,
     FOREIGN KEY (category_id) REFERENCES categories(category_id)
@@ -75,11 +76,11 @@ INSERT INTO users (user_id, login, password_hash, role_id) VALUES
 (2, 'manager', 'manager123', 2),
 (3, 'admin', 'admin123', 3);
 
-INSERT INTO products (product_id, product_name, description, price, stock_quantity, category_id) VALUES
-(1, 'Меховая куртка', 'Теплая зимняя куртка', 2421.00, 20, 1),
-(2, 'Кожаная куртка', 'Классическая куртка из кожи', 1200.00, 12, 1),
-(3, 'Джинсы', 'Повседневные синие джинсы', 500.00, 35, 2),
-(4, 'Кроссовки', 'Удобные кроссовки для прогулок', 1500.00, 18, 3);
+INSERT INTO products (product_id, product_name, description, price, discount, stock_quantity, category_id) VALUES
+(1, 'Меховая куртка', 'Теплая зимняя куртка', 2421.00, 5, 20, 1),
+(2, 'Кожаная куртка', 'Классическая куртка из кожи', 1200.00, 10, 12, 1),
+(3, 'Джинсы', 'Повседневные синие джинсы', 500.00, 0, 35, 2),
+(4, 'Кроссовки', 'Удобные кроссовки для прогулок', 1500.00, 15, 18, 3);
 
 INSERT INTO orders (order_id, user_id, status_id, created_at, total_amount) VALUES
 (1, 1, 1, '2026-05-27 12:00:00', 2421.00),
